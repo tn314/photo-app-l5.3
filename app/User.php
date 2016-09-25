@@ -19,6 +19,42 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the photos for a user
+     *
+     * @return hasMany
+     */
+    public function photos()
+    {
+        return $this->hasMany(Photo::class, 'author_id');
+    }
+
+
+    /**
+     * Get the friends for a user
+     *
+     * @return belongsToMany
+     */
+    public function friends()
+    {
+        return $this->belongsToMany(User::class, 'friend_user', 'user_id', 'friend_id')->withTimestamps();
+    }
+
+    public function getIsFriendAttribute()
+    {
+        return request()->user()->friends()->get()->contains($this);
+    }
+
+    public function addFriend(User $friend)
+    {
+        $this->friends()->attach($friend);
+    }
+
+    public function deleteFriend(User $friend)
+    {
+        $this->friends()->detach($friend);
+    }
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

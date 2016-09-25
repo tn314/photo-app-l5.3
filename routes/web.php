@@ -20,3 +20,8 @@ Route::resource('photos', 'PhotoController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/{name}', 'UsersController@name');
+
+Route::post('/{name}/friend', ['as' => 'friends', 'uses' => 'UsersController@addFriend']);
+Route::delete('/{name}/friend', ['as' => 'friends', 'uses' => 'UsersController@deleteFriend']);
