@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="panel-heading"><a href="{{ route('photos.show', $photo->id) }}">{{ $photo->title }}</a> <b>By:</b> {{ $photo->author->name }}</i></div>
+    <div class="panel-heading"><a href="{{ route('photos.show', $photo->id) }}">{{ $photo->title }}</a> <b>By:</b> <a href="{{ url( $photo->author->name ) }}">{{ $photo->author->name }}</a></i></div>
     @can('destroy', $photo)
     <div>
         <form action="{{ route('photos.destroy', $photo->id) }}" method="POST">
